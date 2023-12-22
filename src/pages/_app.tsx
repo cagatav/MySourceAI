@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import StarsCanvas from "@/components/StarBackground";
@@ -8,15 +8,12 @@ import type { AppProps } from 'next/app'
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Space Portfolio",
-  description: "This is my portfolio",
-};
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <div className="bg-gradient-to-b from-slate-700 to-slate-900 overflow-y-scroll overflow-x-hidden z-10">
-          <Component {...pageProps}/>
+  return <div className=" bg-gradient-to-tr from-[#2e2b52] to-[#08021b] overflow-y-hidden">
+
           <StarsCanvas />
           <Navbar />
+          <Component {...pageProps}/>
          </div> 
 }
