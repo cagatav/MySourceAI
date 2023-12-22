@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import axios from 'axios';
 
 import TypingAnimation from "../components/TypingAnimation";
-
+//<StarsCanvas /> 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -44,10 +44,11 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto max-w-[700px]"> 
-      <div className="flex flex-col h-screen bg-gradient-to-b from-slate-700	 to-slate-900">
-        <h1 className="bg-gradient-to-t from-slate-100	 to-slate-300 text-transparent bg-clip-text text-center pb-32 font-bold text-6xl">MySourceAI</h1>
-        <div className="flex-grow p-6">
+    <div className="flex justify-center h-[839px] rounded-lg border border-[#ffffff] mx-96 mt-24 mb-10 z-40">
+    
+      <div className="w-screen h-[839px]">
+        <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent bg-clip-text text-center pt-10 pb-0 font-bold text-4xl">AI Chat</h1>
+        <div className="p-6">
           <div className="flex flex-col space-y-4">
           {
         chatLog.map((message, index) => (
@@ -71,16 +72,20 @@ export default function Home() {
               </div>
             }
       </div>
-        </div>
-        <form onSubmit={handleSubmit} className="flex-none p-6">
-          <div className="flex rounded-lg border border-slate-600 bg-transparent">  
-        <input type="text" className="flex-grow px-4 py-2 bg-transparent text-white focus:outline-none" 
+    </div>
+    <div> <form onSubmit={handleSubmit} className="p-6 -z-40">
+          <div className="flex rounded-lg border border-[#ffffff]">  
+        <input type="text" className="flex-grow px-4 py-2 bg-transparent text-white focus:outline-none " 
           placeholder="Ask something to MySourceAI!"
           value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-            <button type="submit" className="bg-transparent  px-5 py-3 text-gray-400 focus:outline-none hover:text-white font-semibold duration-300">Send</button>
+            <button type="submit" className="px-5 py-3 text-gray-400 focus:outline-none hover:text-white font-semibold duration-300">Send</button>
             </div>
         </form>
         </div>
-    </div>
+  </div>
+
+  
+
+</div>
   )
 }

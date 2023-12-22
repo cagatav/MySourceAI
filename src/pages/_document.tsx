@@ -6,6 +6,7 @@ export default function Document() {
       <Head><title>MySourceAI</title></Head> 
       <body>
         <Main />
+        
         <NextScript />
       </body>
     </Html>
