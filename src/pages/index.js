@@ -44,8 +44,8 @@ export default function Home() {
   }
 
   return (
-   <div className= "h-[7500px]">
-    <div className="flex w-[1125px] justify-center h-[750px] mb-96 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b]  border-[#ffffff69] mx-96 mt-24 overflow-y-auto overflow-x-hidden">
+   <div className= "h-[880px]">
+    <div className="flex w-[750px] justify-center h-[550px] mb-96 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b]  border-[#ffffff69] mx-96 mt-24 overflow-y-auto overflow-x-hidden">
       <div className="w-full ">
         <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent  bg-clip-text text-center pt-10 pb-0 font-bold text-4xl">AI Chat</h1>
         <div className="p-6">
@@ -74,11 +74,11 @@ export default function Home() {
       </div>
     </div>
     <div> <form onSubmit={handleSubmit} className="">
-          <div className="absolute w-[1125px] rounded-lg border border-[#ffffff69] bottom-14">  
-        <input type="text" className="px-4 py-2 w-[1010px] bg-transparent text-white  focus:outline-none " 
+          <div className="absolute w-[750px] rounded-lg border border-[#ffffff69] bottom-14">  
+        <input type="text" className="px-4 py-2 w-[700px] bg-transparent text-white  focus:outline-none " 
           placeholder="Ask something to MySourceAI!"
           value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-            <button type="submit" className="px-6 py-3 ml-[27px] text-gray-400 focus:outline-none  font-semibold hover:text-white hover:scale-110 duration-300">Send</button>
+            <button type="submit" className="py-3 ml-[px] text-gray-400 focus:outline-none  font-semibold hover:text-white hover:scale-110 duration-300">Send</button>
             </div>
         </form>
         </div>
