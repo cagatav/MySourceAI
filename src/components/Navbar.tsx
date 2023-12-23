@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 const Navbar = () => {
   return (
-  <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#000000]/50 bg-[#03001417] backdrop-blur-md">
+  <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#000000]/50 bg-[#03001417] backdrop-blur-md z-40">
     <div className="flex justify-center">
       <div className="h-[65px] fixed top-0 shadow-lg z-50">
         <div className="w-[500px] h-full flex flex-row items-center">
