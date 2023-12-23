@@ -54,7 +54,7 @@ export default function Home() {
         <div className="w-full">
           <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent  bg-clip-text text-center pt-10 pb-0 font-bold text-4xl select-none">AI Chat</h1>
           <div className="p-6">
-            <div className="flex flex-col space-y- w-full">
+            <div className="flex flex-col  space-y-4 w-full">
               {chatLog.map((message, index) => (
                 <div
                   key={index}
