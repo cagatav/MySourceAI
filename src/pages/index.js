@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="h-screen">
-      <div className="relative w-1/2 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto cursor-all-scroll  overflow-x-hidden" ref={chatBoxRef}>
+      <div className="relative w-1/2 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto overflow-x-hidden" ref={chatBoxRef}>
         <div className="w-full">
           <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent  bg-clip-text text-center pt-10 pb-0 font-bold text-4xl select-none">AI Chat</h1>
           <div className="p-6">
@@ -64,7 +64,7 @@ export default function Home() {
                   <div
                     className={`${
                       message.type === 'user' ? 'bg-[#0e395caa]' : 'bg-[#161a55]'
-                    } rounded-lg p-4 text-white max-w-sm`}>
+                    } prose text-inherit break-words rounded-lg p-4 text-white max-w-sm`}>
                     {message.message}
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="px-2 py-4 text-gray-400 focus:outline-none font-semibold hover:text-white hover:scale-110 duration-300">
+            className="px-2 py-4 text-gray-400 focus:outline-none font-semibold hover:text-white hover:scale-110 transition-transform">
             Send
           </button>
         </form>
