@@ -11,7 +11,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
   return <div className=" bg-gradient-to-tr from-[#2e2b52] to-[#08021b] overflow-y-hidden">
-
           <StarsCanvas />
           <Navbar />
           <Component {...pageProps}/>
