@@ -11,9 +11,9 @@ export default function Sources() {
 
   const onDrop = (acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
-      setErrorMessage('File type is not supported. Please upload a .PDF file.');
+      setErrorMessage();
       setTimeout(() => {
-        setErrorMessage('');
+        setErrorMessage('File type is not supported. Please upload a .PDF file.');
       }, 3000);
       return;
     }
@@ -51,7 +51,7 @@ export default function Sources() {
       selected: false,
     }));
 
-    setSelectedFiles(filesArray);
+    setSelectedFiles();
     setUploadedFiles([...uploadedFiles, ...filesArray]);
     // You can perform other operations here, like uploading the files to a server
   };
@@ -88,7 +88,7 @@ export default function Sources() {
       </h1>
 
       <div className="mt-8 flex justify-center">
-        <div className="w-[700px] p-4 border border-gray-300 rounded-md flex flex-col gap-4 items-center">
+        <div className="w-1/2 p-4 border border-gray-300 rounded-md flex flex-col gap-4 items-center">
           <div
             {...getRootProps()}
             className="w-full h-[200px] border-2 border-dashed rounded-md p-4 flex flex-col justify-center items-center"
@@ -106,12 +106,12 @@ export default function Sources() {
               type="file"
               onChange={onFileChange}
               multiple
-              className="mt-4 p-2 border border-gray-300 rounded"
+              className="mt-4 p-2 border border-gray-300 rounded" 
             />
           </div>
 
           {errorMessage && (
-        <div className="bg-red-200 text-red-800 p-2 mt-4 text-center">
+        <div className="bg-red-200 text-red-800 p-2 mt-4 text-center"> 
           {errorMessage}
         </div>
       )}
@@ -132,7 +132,7 @@ export default function Sources() {
           )}
 
           {uploadedFiles.length > 0 && (
-            <div className="w-full p-4 border border-gray-300 rounded-md">
+            <div className="w-full p-4 border border-gray-300 rounded-md" style={{ backdropFilter: 'blur(5px)', backgroundColor: 'rgba(0, 0, 0, 0)' }}>
               <div className="flex justify-between mb-2">
                 <p className="text-lg font-semibold">Uploaded Files</p>
                 <p className="text-lg font-semibold">File Size</p>
