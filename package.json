@@ -12,14 +12,17 @@
     "@react-three/drei": "^9.92.5",
     "@react-three/fiber": "^8.15.12",
     "@types/three": "^0.159.0",
+    "@vercel/speed-insights": "^1.0.10",
+    "ai": "^3.0.13",
     "axios": "^1.6.2",
     "math-random": "^2.0.1",
-    "next": "^14.0.4",
+    "next": "^14.1.4",
     "random": "^4.1.0",
     "random-esm": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-router": "^6.22.3",
     "three": "^0.159.0"
   },
   "devDependencies": {
