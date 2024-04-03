@@ -4,4 +4,5 @@ Ahmet Enes Küçükmadan
 Enes Çağatay Sözen
 Tarık Şengül
 
-Vercel Link: mysoruceai.vercel.app
+Vercel Link: [mysoruceai.vercel.app
+](https://mysourceai.vercel.app/)
