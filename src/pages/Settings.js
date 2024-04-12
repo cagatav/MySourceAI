@@ -44,8 +44,8 @@ export default function Settings() {
                 GPT 4
               </button>
             </div>
-            <div className="text-center mb-12">
-              <label htmlFor="temperature" className="text-white">Select temperature:</label>
+            <div className="text-center mb-20">
+              <label htmlFor="temperature" className="text-white">Temperature</label>
               <br/>
               <input
                 type="range"
