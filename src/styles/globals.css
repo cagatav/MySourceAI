@@ -27,7 +27,7 @@ body {
     rgb(var(--background-start-rgb));
 }
 .Toastify__toast--success {
-  background-color: #28a745 !important;
+  background-color: #28a7455e !important;
   color: white !important;
 }
 
@@ -38,12 +38,12 @@ body {
 }
 
 .Toastify__toast--info {
-  background-color: #17a2b8 !important;
+  background-color: #17a2b85e !important;
   color: white !important;
 }
 
 .Toastify__toast--warning {
-  background-color: #ffc107 !important;
+  background-color: #ffc1075e !important;
   color: black;
 }
 .Toastify__close-button {

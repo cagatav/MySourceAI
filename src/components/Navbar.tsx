@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#000000]/50 bg-[#03001417] backdrop-blur-md z-40">
-      <div className="flex justify-between items-center bg-[#03001417] backdrop-blur-md shadow-lg h-[65px] px-4 md:px-0">
+      <div className="flex justify-between items-center bg-[#03001417] shadow-lg h-[65px] px-4 md:px-0">
         <a
           href="#"
           className="flex items-center text-gray-300 font-bold hover:text-white duration-500 select-none ml-8"

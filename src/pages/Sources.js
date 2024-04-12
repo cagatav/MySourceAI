@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Sources() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -10,11 +9,13 @@ export default function Sources() {
   const validateFiles = (files) => {
     const validFiles = files.filter(file => file.type === 'application/pdf');
     const invalidCount = files.length - validFiles.length;
-
+  
     if (invalidCount > 0) {
-      toast.error(`File type not supported. Please upload only PDF files.`);
+      toast.error(`Invalid file format. Only PDF files are allowed to be uploaded. Please select a PDF file to proceed.`);
+    } else if (validFiles.length > 0) {
+      toast.success(`Your PDF file has been uploaded successfully!`); // Use toast.success instead of toast.accept
     }
-
+  
     return validFiles;
   };
 
@@ -34,6 +35,7 @@ export default function Sources() {
     onDrop,
     accept: 'application/pdf',
     multiple: true,
+    
   });
 
   const deleteSelectedFiles = () => {
@@ -48,22 +50,23 @@ export default function Sources() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-[600px]" id="sources">
-      <h1 className="text-3xl font-semibold bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text text-transparent select-none">
+    <div className="flex flex-col items-center h-screen" id="sources">
+      <h1 className="text-3xl font-semibold bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text text-transparent select-none "
+      >
         Sources
       </h1>
-      <div {...getRootProps()} className={`md:w-1/2 xx:w-4/5 mt-4 p-4 border-2 border-dashed rounded-md ${
+      <div {...getRootProps()} className={`md:w-1/2 xx:w-4/5 mt-4 p-4 border-2 border-dashed rounded-md backdrop-blur-sm ${
           isDragActive ? 'border-blue-500 bg-blue-100' : 'border-gray-300'
-        } flex flex-col justify-center items-center`}>
+        } flex flex-col justify-center items-center` }>
         <input {...getInputProps()} />
         {isDragActive ? (
           <p className="text-gray-500">Drop the PDF files here...</p>
         ) : (
-          <p className="text-gray-500">Drag and drop PDF files here, or click to select files</p>
+          <p className="text-gray-500 select-none">Drag and drop PDF files here, or click to select files</p>
         )}
       </div>
       {uploadedFiles.length > 0 && (
-        <div className="w-1/2 p-4 border border-gray-300 rounded-md mt-4">
+        <div className="w-1/2 p-4 border border-gray-300 rounded-md mt-4 backdrop-blur-sm">
           <div className="flex justify-between mb-5">
             <p className="text-lg font-semibold">Uploaded Files</p>
             <p className="text-lg font-semibold">File Size</p>

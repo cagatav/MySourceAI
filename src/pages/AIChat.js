@@ -15,7 +15,7 @@ export default function AIChat() {
     event.preventDefault();
     if (!inputValue.trim()) {
       // Boş veya sadece boşluk içeren bir girdi varsa uyarı göster
-      toast.error('Lütfen bir mesaj giriniz!');
+      toast.error('Sending empty messages is not allowed. Please enter some text before sending a message.');
       return;
     }
     setChatLog((prevChatLog) => [...prevChatLog, { type: 'user', message: inputValue }]);
@@ -52,7 +52,8 @@ export default function AIChat() {
       <div className="h-screen">
         <div className="relative w-full md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto overflow-x-hidden" ref={chatBoxRef}>
           <div className="w-full">
-            <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent  bg-clip-text text-center pt-10 pb-0 font-semibold text-3xl select-none">AI Chat</h1>
+            <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent bg-clip-text text-center pt-10 pb-0 font-semibold text-3xl select-none">
+              AI Chat</h1>
               <div className="flex flex-col  space-y-4 w-full p-6">
                 <h1 className=" flex bg-[#161a55] rounded-lg p-4 text-white max-w-fit prose text-inherit break-words">Hello! Welcome to MySourceAI!</h1>
                   {chatLog.map((message, index) => (
