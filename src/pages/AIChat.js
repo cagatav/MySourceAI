@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Inter } from 'next/font/google'
 import axios from 'axios';
 import TypingAnimation from "../components/TypingAnimation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function AIChat() {
@@ -10,12 +12,17 @@ export default function AIChat() {
   const [isLoading, setIsLoading] = useState(false);
   const chatBoxRef = useRef(null);
   const handleSubmit = (event) => {
-
     event.preventDefault();
-    setChatLog((prevChatLog) => [...prevChatLog, { type: 'user', message: inputValue }])
+    if (!inputValue.trim()) {
+      // Boş veya sadece boşluk içeren bir girdi varsa uyarı göster
+      toast.error('Lütfen bir mesaj giriniz!');
+      return;
+    }
+    setChatLog((prevChatLog) => [...prevChatLog, { type: 'user', message: inputValue }]);
     sendMessage(inputValue);
     setInputValue('');
   }
+  
   const sendMessage = (message) => {
     const url = '/api/chat';
     const data = {
@@ -43,7 +50,7 @@ export default function AIChat() {
     <div className="h-auto">
       <div className= "text-transparent" id="ai-chat">MySourceAI</div>
       <div className="h-screen">
-        <div className="relative w-1/2 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto overflow-x-hidden" ref={chatBoxRef}>
+        <div className="relative w-full md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto overflow-x-hidden" ref={chatBoxRef}>
           <div className="w-full">
             <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent  bg-clip-text text-center pt-10 pb-0 font-semibold text-3xl select-none">AI Chat</h1>
               <div className="flex flex-col  space-y-4 w-full p-6">
@@ -72,7 +79,7 @@ export default function AIChat() {
               </div>
           </div>
         </div>
-        <div className="relative inset-x-0 w-1/2 rounded-lg border border-[#ffffff69] mx-auto bottom-12 flex">
+        <div className=" md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2 rounded-lg border border-[#ffffff69] mx-auto bottom-12 flex">
           <form onSubmit={handleSubmit} className="w-full flex">
             <input
               type="text"
@@ -86,6 +93,7 @@ export default function AIChat() {
               Send
             </button>
           </form>
+          
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -24,4 +25,27 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+.Toastify__toast--success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.Toastify__toast--error {
+  background-color: #0300145e !important;
+  color: white !important;
+  
+}
+
+.Toastify__toast--info {
+  background-color: #17a2b8 !important;
+  color: white !important;
+}
+
+.Toastify__toast--warning {
+  background-color: #ffc107 !important;
+  color: black;
+}
+.Toastify__close-button {
+  color: white !important;
 }

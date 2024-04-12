@@ -34,7 +34,7 @@ export default function Settings() {
             <div className="pt-24">
             <div className="flex justify-center mb-12">
               <button
-                className={`mx-2 py-2 px-20 bg-gradient-to-r from-blue-700 to-[#2e2b5285] text-white rounded-md focus:outline-none ${chatType === 'gpt-3.5' ? 'bg-gray-600' : ''}`}
+                className={`mx-2 py-2 px-20 bg-[#161a55] text-white rounded-md focus:outline-none ${chatType === 'gpt-3.5' ? 'bg-[#161a55]' : ''}`}
                 onClick={() => handleChatTypeChange('gpt-3.5')}>
                 GPT 3.5
               </button>
@@ -61,7 +61,7 @@ export default function Settings() {
             </div>
             <div className="flex justify-center">
               <button
-                className="bg-blue-700 hover:bg-blue-700 text-white py-2 px-8 rounded mr-2"
+                className="bg-[#161a55] hover:opacity-100 hover:text-opacity-100 transition-transform text-white  text-opacity-100 opacity-80 py-2 px-8 rounded mr-2"
                 onClick={handleSubmit}
               >
                 SAVE
