@@ -118,8 +118,8 @@ export default function Settings() {
                 <br/><br/>
                 <button
                   className={`duration-200 mx-2 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
-                    ${chatType === 'GPT 3.5' ? 'bg-[#414bd4] border-white text-white' : ''}`}
-                    onClick={() => handleChatTypeChange('GPT 3.5')}>
+                    ${chatType === 'gpt-3.5-turbo-0301' ? 'bg-[#414bd4] border-white text-white' : ''}`}
+                    onClick={() => handleChatTypeChange('gpt-3.5-turbo-0301')}>
                   GPT 3.5
                 </button>
                 <button
