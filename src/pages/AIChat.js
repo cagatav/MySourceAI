@@ -4,38 +4,26 @@ import TypingAnimation from "../components/TypingAnimation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
+import { useBasePrompt } from './BasePromptContext';
+
 
 export default function AIChat() {
+    const { basePrompt } = useBasePrompt();  // Context'ten basePrompt'u çekin
     const [inputValue, setInputValue] = useState('');
     const [chatLog, setChatLog] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [chatType, setChatType] = useState('GPT 3.5');
     const [temperature, setTemperature] = useState(0.5);
-    const [basePrompt, setBasePrompt] = useState('');
     const chatBoxRef = useRef(null);
 
     useEffect(() => {
         const storedChatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
         const savedChatType = localStorage.getItem('chatType') || 'GPT 3.5';
         const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
-        const savedBasePrompt = localStorage.getItem('basePrompt') || "You're an intelligent assistant named MySourceAI, focused on giving precise and helpful answers. Excel in multi-turn conversations and ask for clarification if needed.";
         
         setChatLog(storedChatLog);
         setChatType(savedChatType);
         setTemperature(savedTemperature);
-        setBasePrompt(savedBasePrompt);
-    }, []);
-
-    useEffect(() => {
-        const handleStorageChange = event => {
-            if (event.key === 'basePrompt') {
-                setBasePrompt(event.newValue || "You're an intelligent assistant named MySourceAI, focused on giving precise and helpful answers. Excel in multi-turn conversations and ask for clarification if needed.");
-            }
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-
-        return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
     const handleSubmit = (event) => {
@@ -48,41 +36,42 @@ export default function AIChat() {
         setInputValue('');
     }
 
-  const sendMessage = (message) => {
-    const url = '/api/chat';
-    const lastFiveMessages = chatLog.slice(Math.max(chatLog.length - 5, 0));
-    const dialogHistory = lastFiveMessages.map(log => ({
-        role: log.type === 'user' ? 'user' : 'system',
-        content: log.message
-    }));
+    const sendMessage = (message) => {
+        const url = '/api/chat';
+        const lastFiveMessages = chatLog.slice(Math.max(chatLog.length - 5, 0));
+        const dialogHistory = lastFiveMessages.map(log => ({
+            role: log.type === 'user' ? 'user' : 'system',
+            content: log.message
+        }));
 
-    const fullPrompt = `${basePrompt} ${message}`;
+        const fullPrompt = `${basePrompt} ${message}`;
 
-    const data = {
-        model: chatType, // Model tipi
-        messages: [...dialogHistory, { role: "user", content: fullPrompt }],
-        temperature: temperature, // Temperature değeri
-        max_tokens: 200
-    };
+        const data = {
+            model: chatType, // Model tipi
+            messages: [...dialogHistory, { role: "user", content: fullPrompt }],
+            temperature: temperature, // Temperature değeri
+            max_tokens: 200
+        };
 
-    // Log data including the base prompt and last five messages
-    console.log("Sending the following data to the API:", data);
-    console.log("Base Prompt:", basePrompt);
-    console.log("Full Prompt sent to the model:", fullPrompt);
-    console.log("Last five messages (dialog history):", dialogHistory);
+        // Log data including the base prompt and last five messages
+        console.log("Sending the following data to the API:", data);
+        console.log("Base Prompt:", basePrompt);
+        console.log("Full Prompt sent to the model:", fullPrompt);
+        console.log("Last five messages (dialog history):", dialogHistory);
 
-    setIsLoading(true);
-    axios.post(url, data).then((response) => {
-        const newBotMessage = { type: 'bot', message: response.data.choices[0].message.content };
-        const newChatLog = [...chatLog, { type: 'user', message }, newBotMessage];
-        setChatLog(newChatLog);
-        localStorage.setItem('chatLog', JSON.stringify(newChatLog));
-        setIsLoading(false);
-    }).catch((error) => {
-        console.error("Error sending message: ", error);
-        setIsLoading(false);
-    });
-}
+        setIsLoading(true);
+        axios.post(url, data).then((response) => {
+            const newBotMessage = { type: 'bot', message: response.data.choices[0].message.content };
+            const newChatLog = [...chatLog, { type: 'user', message }, newBotMessage];
+            setChatLog(newChatLog);
+            localStorage.setItem('chatLog', JSON.stringify(newChatLog));
+            setIsLoading(false);
+        }).catch((error) => {
+            console.error("Error sending message: ", error);
+            setIsLoading(false);
+        });
+    }
+
     const clearHistory = () => {
         if (chatLog.length === 0) {
             toast.error("There are no messages to clear.");

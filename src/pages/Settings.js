@@ -1,89 +1,78 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { useBasePrompt } from './BasePromptContext'; // Yolu kontrol ediniz
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Settings() {
-  const [chatType, setChatType] = useState('GPT 3.5');
-  const [temperature, setTemperature] = useState(0.5);
-  const [basePrompt, setBasePrompt] = useState('');
-  const [initialChatType, setInitialChatType] = useState('');
-  const [initialTemperature, setInitialTemperature] = useState(0);
-  const [initialBasePrompt, setInitialBasePrompt] = useState('');
+    const { basePrompt, updateBasePrompt } = useBasePrompt();
+    const [chatType, setChatType] = useState('GPT 3.5');
+    const [temperature, setTemperature] = useState(0.5);
+    const [initialChatType, setInitialChatType] = useState('');
+    const [initialTemperature, setInitialTemperature] = useState(0);
+    const [initialBasePrompt, setInitialBasePrompt] = useState(basePrompt); // Başlangıç değeri olarak context'ten alınan basePrompt kullanılır
 
-  useEffect(() => {
-    const savedChatType = localStorage.getItem('chatType') || 'GPT 3.5';
-    const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
-    const savedBasePrompt = localStorage.getItem('basePrompt') || "You're an intelligent assistant named "+ "MySourceAI"+", focused on giving precise and helpful answers. Excel in multi-turn conversations and ask for clarification if needed.";
+    useEffect(() => {
+        const savedChatType = localStorage.getItem('chatType') || 'GPT 3.5';
+        const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
 
-    setChatType(savedChatType);
-    setTemperature(savedTemperature);
-    setBasePrompt(savedBasePrompt);
+        setChatType(savedChatType);
+        setTemperature(savedTemperature);
+        setInitialChatType(savedChatType);
+        setInitialTemperature(savedTemperature);
+    }, []); // Bağımlılıkları kaldırdım, basePrompt burada kullanılmamalı
 
-    setInitialChatType(savedChatType);
-    setInitialTemperature(savedTemperature);
-    setInitialBasePrompt(savedBasePrompt);
-  }, []);
+    const handleChatTypeChange = (selectedType) => {
+        setChatType(selectedType);
+    };
 
-  const handleChatTypeChange = (selectedType) => {
-    setChatType(selectedType);
-  };
+    const handleTemperatureChange = (event) => {
+        setTemperature(parseFloat(event.target.value));
+    };
 
-  const handleTemperatureChange = (event) => {
-    setTemperature(parseFloat(event.target.value));
-  };
+    const handleBasePromptChange = (event) => {
+        updateBasePrompt(event.target.value);
+    };
 
-  const handleBasePromptChange = (event) => {
-    setBasePrompt(event.target.value);
-  };
+    const handleSubmit = () => {
+        let changesMade = false;
 
-  const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
-  };
+        if (chatType !== initialChatType) {
+            localStorage.setItem('chatType', chatType);
+            toast.info('Selected GPT Model: ' + chatType);
+            setInitialChatType(chatType);
+            changesMade = true;
+        }
 
-  const handleSubmit = () => {
-    let changesMade = false;
-  
-    if (chatType !== initialChatType) {
-      localStorage.setItem('chatType', chatType);
-      toast.info('Selected GPT Model: ' + chatType);
-      setInitialChatType(chatType);
-      changesMade = true;
-    }
-  
-    if (temperature !== initialTemperature) {
-      localStorage.setItem('temperature', temperature);
-      toast.info('Selected Temperature: ' + temperature);
-      setInitialTemperature(temperature);
-      changesMade = true;
-    }
-  
-    if (basePrompt !== initialBasePrompt) {
-      localStorage.setItem('basePrompt', basePrompt);
-      toast.success('The base prompt has been updated: ' + truncateText(basePrompt, 50));
-      setInitialBasePrompt(basePrompt);
-      changesMade = true;
-    }
-  
-    if (!changesMade) {
-      toast.error('No changes to save.');
-    } else {
-      console.log("Changes saved: ", {
-        chatType: chatType,
-        temperature: temperature,
-        basePrompt: basePrompt
-      });
-    }
-  };
-  
+        if (temperature !== initialTemperature) {
+            localStorage.setItem('temperature', temperature);
+            toast.info('Selected Temperature: ' + temperature);
+            setInitialTemperature(temperature);
+            changesMade = true;
+        }
 
-  const handleCancel = () => {
+        if (basePrompt !== initialBasePrompt) {
+            toast.success('The base prompt has been updated: ' + basePrompt);
+            setInitialBasePrompt(basePrompt);
+            changesMade = true;
+        }
 
-    setChatType(initialChatType);
-    setTemperature(initialTemperature);
-    setBasePrompt(initialBasePrompt);
+        if (!changesMade) {
+            toast.error('No changes to save.');
+        } else {
+            console.log("Changes saved: ", {
+                chatType: chatType,
+                temperature: temperature,
+                basePrompt: basePrompt
+            });
+        }
+    };
 
-    toast.warning("Cancelled");
-  };
+    const handleCancel = () => {
+        setChatType(initialChatType);
+        setTemperature(initialTemperature);
+        updateBasePrompt(initialBasePrompt);
+        toast.warning("Cancelled");
+    };
 
   return (
     <div className="h-auto">
