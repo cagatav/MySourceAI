@@ -22,11 +22,16 @@
 ::-webkit-scrollbar-thumb:hover {
   background:rgba(255, 255, 255);
 }
+@font-face {
+  font-family: 'montserrat'; /* Buraya bir isim verin */
+  src: url('/Montserrat-Font.ttf'); /* .ttf dosyasının yolunu ekleyin */
+  }
 
 body {
-  
+
+  font-family: 'montserrat', sans-serif !important;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  background: linear-gradient(  
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
