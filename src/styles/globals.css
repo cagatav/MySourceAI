@@ -5,13 +5,11 @@
 
 ::-webkit-scrollbar {
   width: 5px; /* Genişlik */
-  border-radius: 0.375rem
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background-image: linear-gradient(to bottom, #2e2b52, #08021b);
-  border-radius: 0.375rem
+  background: #08021b;
 }
 
 /* Handle */

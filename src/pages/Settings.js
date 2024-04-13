@@ -46,21 +46,21 @@ export default function Settings() {
     if (chatType !== initialChatType) {
       localStorage.setItem('chatType', chatType);
       toast.info('Selected GPT Model: ' + chatType);
-      setInitialChatType(chatType);  // Update initial state to reflect the new saved state
+      setInitialChatType(chatType);
       changesMade = true;
     }
   
     if (temperature !== initialTemperature) {
       localStorage.setItem('temperature', temperature);
       toast.info('Selected Temperature: ' + temperature);
-      setInitialTemperature(temperature);  // Update initial state to reflect the new saved state
+      setInitialTemperature(temperature);
       changesMade = true;
     }
   
     if (basePrompt !== initialBasePrompt) {
       localStorage.setItem('basePrompt', basePrompt);
       toast.success('The base prompt has been updated: ' + truncateText(basePrompt, 50));
-      setInitialBasePrompt(basePrompt);  // Update initial state to reflect the new saved state
+      setInitialBasePrompt(basePrompt);
       changesMade = true;
     }
   
@@ -92,10 +92,10 @@ export default function Settings() {
         <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent bg-clip-text text-center pt-10 pb-1 font-semibold text-3xl select-none mt-12">
           Settings</h1>
         
-        <div className="relative md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 flex rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-[#ffffff69] mx-auto mt-8 overflow-y-auto overflow-x-hidden">
+        <div className="relative md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 flex rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-[#ffffff69] mx-auto mt-4 overflow-y-auto overflow-x-hidden">
           <div className="w-full">
             <div className="py-10 font-medium">
-            <div className="text-center mb-10 margin">
+            <div className="text-center margin pb-3">
                 <label htmlFor="basePrompt" className="text-white text-lg border-b select-none">Base Prompt</label>
                 <br/><br/>
                 <textarea
@@ -107,13 +107,13 @@ export default function Settings() {
                   style={{ width: "80%", resize: "none" }}
                 />
               </div>
-              <div className="text-center mb-20 margin ">
+              <div className="text-center mb-5 margin ">
                 <label htmlFor="temperature" className="text-white text-lg border-b select-none">GPT Model</label>
                 <br/><br/>
                 <button
                   className={`duration-200 mx-2 py-2 px-20 text-white rounded-md focus:outline-none border border-transparent hover:border-white hover:border 
-                  ${chatType === 'GPT 3.5' ? 'bg-[#414bd4] border-white' : ''}`}
-                  onClick={() => handleChatTypeChange('GPT 3.5')}>
+                    ${chatType === 'GPT 3.5' ? 'bg-[#414bd4] border-white' : ''}`}
+                    onClick={() => handleChatTypeChange('GPT 3.5')}>
                   GPT 3.5
                 </button>
                 <button
@@ -123,7 +123,7 @@ export default function Settings() {
                   GPT 4
                 </button>
               </div>
-              <div className="text-center mb-20 margin text-lg">
+              <div className="text-center mb-10 margin text-lg">
               <label htmlFor="temperature" className="text-white border-b select-none">Temperature</label>
                 <br/><br/>
                 <input
