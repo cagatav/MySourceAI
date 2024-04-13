@@ -11,6 +11,8 @@ export default function AIChat() {
   const [isLoading, setIsLoading] = useState(false);
   const chatBoxRef = useRef(null);
 
+  const promptPrefix = "You're an intelligent assistant named MySourceAI, focused on giving precise and helpful answers. Excel in multi-turn conversations and ask for clarification if needed.";
+
   useEffect(() => {
     const storedChatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
     setChatLog(storedChatLog);
@@ -36,7 +38,7 @@ export default function AIChat() {
 
     const data = {
       model: "gpt-3.5-turbo-0301",
-      messages: [...dialogHistory, { role: "user", content: message }],
+      messages: [...dialogHistory, { role: "user", content: `${promptPrefix} ${message}` }],
       temperature: 0.1,
       max_tokens: 200
     };
