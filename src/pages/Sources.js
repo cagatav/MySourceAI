@@ -12,11 +12,18 @@ export default function Sources() {
   
     if (invalidCount > 0) {
       toast.error(`Invalid file format. Only PDF files are allowed to be uploaded. Please select a PDF file to proceed.`);
-    } else if (validFiles.length > 0) {
+      return [];
+    } 
+    
+    const newFiles = validFiles.filter(file => !uploadedFiles.some(uploadedFile => uploadedFile.name === file.name));
+    
+    if (newFiles.length > 0) {
       toast.success(`Your PDF file has been uploaded successfully!`);
+    } else {
+      toast.warning(`File(s) with the same name already exist.`);
     }
   
-    return validFiles;
+    return newFiles;
   };
 
   const onDrop = (acceptedFiles, rejectedFiles) => {
