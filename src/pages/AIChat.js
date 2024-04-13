@@ -28,7 +28,7 @@ export default function AIChat() {
     const data = {
       model: "gpt-3.5-turbo-0301",
       messages: [{ "role": "user", "content": message,}],
-      temperature: 0.7,
+      temperature: 0.1,
       max_tokens: 200
     };
     setIsLoading(true);
@@ -55,7 +55,8 @@ export default function AIChat() {
             <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent bg-clip-text text-center pt-10 pb-0 font-semibold text-3xl select-none">
               AI Chat</h1>
               <div className="flex flex-col  space-y-4 w-full p-6">
-                <h1 className=" flex bg-[#161a55] rounded-lg p-4 text-white max-w-fit prose text-inherit break-words">Hello! Welcome to MySourceAI!</h1>
+                <label className=" flex bg-[#161a5575] backdrop-blur-sm rounded-lg p-4 text-white max-w-fit prose text-inherit break-words">
+                  Hello! Welcome to MySourceAI!</label>
                   {chatLog.map((message, index) => (
                     <div
                       key={index}
@@ -64,7 +65,7 @@ export default function AIChat() {
                       }`}>
                       <div
                         className={`${
-                          message.type === 'user' ? 'bg-[#0e395caa]' : 'bg-[#161a55]'
+                          message.type === 'user' ? 'bg-[#0e395c75]' : 'bg-[#161a5575] backdrop-blur-sm'
                         } prose text-inherit break-words rounded-lg p-4 text-white max-w-sm`}>
                         {message.message}
                       </div>
@@ -72,7 +73,7 @@ export default function AIChat() {
                   ))}
                 {isLoading && (
                 <div key={chatLog.length} className="flex justify-start">
-                  <div className="bg-transparent rounded-lg p-4 text-white max-w-sm">
+                  <div className="bg-[#161a5575] rounded-xl p-5 py-7 text-white max-w-sm backdrop-blur-sm">
                     <TypingAnimation/>
                   </div>
                 </div>
@@ -80,8 +81,8 @@ export default function AIChat() {
               </div>
           </div>
         </div>
-        <div className=" md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2 rounded-lg border border-[#ffffff69] mx-auto bottom-12 flex">
-          <form onSubmit={handleSubmit} className="w-full flex">
+        <div className=" md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2 border border-[#ffffff69] mx-auto bottom-12 flex backdrop-blur-sm rounded-lg">
+          <form onSubmit={handleSubmit} className="w-full flex ">
             <input
               type="text"
               className="px-4 py-2 w-11/12 bg-transparent text-white focus:outline-none"

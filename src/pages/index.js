@@ -4,27 +4,30 @@ import Sources from "@/pages/Sources";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 export default function Home() {
   return (
-    <main className="h-[5000px] relative">
-      <div>
-        <AIChat/>
-        <Sources/>
-        <Settings/>
-      </div>
-      <>
+<main className="relative">
+  <div className="min-h-screen">
+    <AIChat/>
+  </div>
+  <div className="min-h-screen">
+    <Sources/>
+  </div>
+  <div className="min-h-screen">
+    <Settings/>
+  </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
         draggable
         pauseOnHover
       />
-    </>
     </main>
     
   );
