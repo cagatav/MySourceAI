@@ -75,8 +75,8 @@ export default function Sources() {
       {uploadedFiles.length > 0 && (
         <div className="w-1/2 p-4 border border-gray-300 rounded-lg mt-4 backdrop-blur-sm">
           <div className="flex justify-between mb-5">
-            <p className="text-lg font-semibold">Uploaded Files</p>
-            <p className="text-lg font-semibold">File Size</p>
+            <p className="text-lg font-semibold text-white">Uploaded Files</p>
+            <p className="text-lg font-semibold text-white">File Size</p>
           </div>
           {uploadedFiles.map((uploadedFile, index) => (
             <div key={index} className="flex items-center justify-between my-5 ml-8">
@@ -95,11 +95,17 @@ export default function Sources() {
               </span>
             </div>
           ))}
-          <button
-            onClick={deleteSelectedFiles}
-            className="mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg">
-            Delete Selected
-          </button>
+          <div className="flex justify-between">
+            <button
+              onClick={deleteSelectedFiles}
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg">
+              Delete Selected
+            </button>
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg">
+              Train MySourceAI
+            </button>
+          </div>
         </div>
       )}
     </div>
