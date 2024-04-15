@@ -12,7 +12,7 @@ export default function Settings() {
     const [initialBasePrompt, setInitialBasePrompt] = useState(basePrompt); // Başlangıç değeri olarak context'ten alınan basePrompt kullanılır
 
     useEffect(() => {
-        const savedChatType = localStorage.getItem('chatType') || 'GPT 3.5';
+        const savedChatType = localStorage.getItem('chatType') || 'gpt-3.5-turbo-0301';
         const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
 
         setChatType(savedChatType);
@@ -32,6 +32,10 @@ export default function Settings() {
     const handleBasePromptChange = (event) => {
         updateBasePrompt(event.target.value);
     };
+    const truncateText = (text, maxLength) => {
+      return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    };
+  
 
     const handleSubmit = () => {
         let changesMade = false;
@@ -51,8 +55,8 @@ export default function Settings() {
         }
 
         if (basePrompt !== initialBasePrompt) {
-            toast.success('The base prompt has been updated: ' + basePrompt);
-            setInitialBasePrompt(basePrompt);
+          toast.success('The base prompt has been updated: ' + truncateText(basePrompt, 50));
+          setInitialBasePrompt(basePrompt);
             changesMade = true;
         }
 

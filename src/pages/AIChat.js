@@ -18,7 +18,7 @@ export default function AIChat() {
 
     useEffect(() => {
         const storedChatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
-        const savedChatType = localStorage.getItem('chatType') || 'GPT 3.5';
+        const savedChatType = localStorage.getItem('chatType') || 'gpt-3.5-turbo-0301';
         const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
         
         setChatLog(storedChatLog);
