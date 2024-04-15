@@ -17,7 +17,7 @@ const Navbar = () => {
         
         <nav className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex">
           <div className="flex items-center h-auto border border-[#ffffff69] bg-[#0300145e] px-[20px] py-[10px] rounded-lg text-gray-200">
-            <a href="#ai-chat" className="cursor-pointer flex items-center font-semibold hover:scale-110 duration-200 mx-8">
+            <a href="#ai-chat" className="cursor-default flex items-center font-semibold hover:scale-110 duration-200 mx-8">
               <img src="/MySourceAI-w.png" alt="AIChat Icon" className="w-5 h-5 mr-2"/>
               AI Chat
             </a>
