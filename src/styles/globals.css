@@ -4,27 +4,27 @@
 
 
 ::-webkit-scrollbar {
-  width: 5px; /* Genişlik */
+  width: 5px;
 }
 
-/* Track */
+
 ::-webkit-scrollbar-track {
   background: #08021b;
 }
 
-/* Handle */
+
 ::-webkit-scrollbar-thumb {
   background:rgba(255, 255, 255, 0.25);
   border-radius: 0.375rem
 }
 
-/* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
   background:rgba(255, 255, 255);
 }
 @font-face {
-  font-family: 'montserrat'; /* Buraya bir isim verin */
-  src: url('/Montserrat-Font.ttf'); /* .ttf dosyasının yolunu ekleyin */
+  font-family: 'montserrat';
+  src: url('/Montserrat-Font.ttf');
   }
 
 body {

@@ -1,7 +1,7 @@
 import AIChat from "@/pages/AIChat";
 import Settings from "@/pages/Settings";
 import Sources from "@/pages/Sources";
-import { BasePromptProvider } from './BasePromptContext'; // Gerekli yolu doğru bir şekilde ayarlayın
+import { BasePromptProvider } from './BasePromptContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useBasePrompt } from './BasePromptContext'; // Yolu kontrol ediniz
+import { useBasePrompt } from './BasePromptContext'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,7 +9,7 @@ export default function Settings() {
     const [temperature, setTemperature] = useState(0.5);
     const [initialChatType, setInitialChatType] = useState('');
     const [initialTemperature, setInitialTemperature] = useState(0);
-    const [initialBasePrompt, setInitialBasePrompt] = useState(basePrompt); // Başlangıç değeri olarak context'ten alınan basePrompt kullanılır
+    const [initialBasePrompt, setInitialBasePrompt] = useState(basePrompt);
 
     useEffect(() => {
         const savedChatType = localStorage.getItem('chatType') || 'gpt-3.5-turbo-0125';
@@ -19,7 +19,7 @@ export default function Settings() {
         setTemperature(savedTemperature);
         setInitialChatType(savedChatType);
         setInitialTemperature(savedTemperature);
-    }, []); // Bağımlılıkları kaldırdım, basePrompt burada kullanılmamalı
+    }, []);
 
     const handleChatTypeChange = (selectedType) => {
         setChatType(selectedType);
@@ -111,7 +111,7 @@ export default function Settings() {
                 <br/><br/>
                 <button
                   className={`duration-200 mx-2 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
-                    ${chatType === 'gpt-3.5-turbo-0125' ? 'bg-[#414bd4] border-white text-white' : ''}`}
+                    ${chatType === 'gpt-3.5-turbo-0125'  ? 'bg-[#414bd4] border-white text-white' : ''}`}
                     onClick={() => handleChatTypeChange('gpt-3.5-turbo-0125')}>
                   GPT 3.5
                 </button>
