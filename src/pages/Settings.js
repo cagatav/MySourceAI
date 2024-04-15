@@ -12,7 +12,7 @@ export default function Settings() {
     const [initialBasePrompt, setInitialBasePrompt] = useState(basePrompt); // Başlangıç değeri olarak context'ten alınan basePrompt kullanılır
 
     useEffect(() => {
-        const savedChatType = localStorage.getItem('chatType') || 'gpt-3.5-turbo-0301';
+        const savedChatType = localStorage.getItem('chatType') || 'gpt-3.5-turbo-0125';
         const savedTemperature = parseFloat(localStorage.getItem('temperature')) || 0.1;
 
         setChatType(savedChatType);
@@ -111,14 +111,14 @@ export default function Settings() {
                 <br/><br/>
                 <button
                   className={`duration-200 mx-2 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
-                    ${chatType === 'gpt-3.5-turbo-0301' ? 'bg-[#414bd4] border-white text-white' : ''}`}
-                    onClick={() => handleChatTypeChange('gpt-3.5-turbo-0301')}>
+                    ${chatType === 'gpt-3.5-turbo-0125' ? 'bg-[#414bd4] border-white text-white' : ''}`}
+                    onClick={() => handleChatTypeChange('gpt-3.5-turbo-0125')}>
                   GPT 3.5
                 </button>
                 <button
                   className={`duration-200 mx-2 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
-                  ${chatType === 'GPT 4' ? 'bg-[#414bd4] border-white text-white' : ''}`}
-                  onClick={() => handleChatTypeChange('GPT 4')}>
+                  ${chatType === 'gpt-4-turbo' ? 'bg-[#414bd4] border-white text-white' : ''}`}
+                  onClick={() => handleChatTypeChange('gpt-4-turbo')}>
                   GPT 4
                 </button>
               </div>
