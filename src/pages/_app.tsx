@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
   return <div className="w-full bg-gradient-to-tr from-[#2e2b52] to-[#08021b] overflow-y-hidden">
         <ToastContainer
           position="top-right"
-          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={true}
           closeOnClick

@@ -40,7 +40,7 @@ export default function Sources() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: 'application/pdf',
+//    accept: 'application/pdf',
     multiple: true,
     
   });
@@ -101,7 +101,7 @@ export default function Sources() {
           <div className="flex justify-between">
             <button
               onClick={deleteSelectedFiles}
-              className="bg-red-800 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg duration-500 border border-transparent hover:border-white">
+              className="bg-red-800 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg duration-500 ">
               Delete Selected
             </button>
             <button
