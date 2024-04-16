@@ -6,7 +6,8 @@ import Image from "next/image";
 import { useBasePrompt } from './api/BasePromptContext';
 
 export default function AIChat() {
-    const { basePrompt } = useBasePrompt();
+
+    const [basePrompt]  = useBasePrompt("") || [];
     const [inputValue, setInputValue] = useState('');
     const [chatLog, setChatLog] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
