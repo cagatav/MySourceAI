@@ -10,9 +10,9 @@ const config: Config = {
     screens: {
       'xx': '50px',
       'xs': '475px',
-      'sm': '640px', // Small devices (landscape phones, 640px and up)
-      'md': '768px', // Medium devices (tablets, 768px and up)
-      'lg': '1024px', // Large devices (desktops, 1024px and up)
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
       'xl': '1280px',
     },
     extend: {
@@ -21,6 +21,9 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+      }
     },
   },
   plugins: [],
