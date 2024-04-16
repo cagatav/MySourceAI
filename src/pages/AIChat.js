@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import TypingAnimation from "../components/TypingAnimation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Image from "next/image";
-import { useBasePrompt } from './BasePromptContext';
+import { useBasePrompt } from './api/BasePromptContext';
 
 export default function AIChat() {
     const { basePrompt } = useBasePrompt();
@@ -49,21 +48,27 @@ export default function AIChat() {
             content: log.message
         }));
 
-        const userMessage = `${message}`;
-
-        const data = {
+        const requestData = {
             model: chatType,
-            messages: [...dialogHistory, { role: "system", content: basePrompt }, { role: "user", content: userMessage }],
+            messages: [...dialogHistory, 
+                        { 
+                            role: "system", 
+                            content: basePrompt 
+                        }, 
+                        { 
+                            role: "user", 
+                            content: `${message}` 
+                        }],
             temperature: temperature,
             max_tokens: 200
         };
 
-        console.log("Sending the following data to the API:", data);
+        console.log("Sending the following data to the API:", requestData);
         console.log("Base Prompt:", basePrompt);
-        console.log("Dialog History:", userMessage);
-
+        
         setIsLoading(true);
-        axios.post(url, data).then((response) => {
+
+        axios.post(url, requestData).then((response) => {
             const newBotMessage = { type: 'bot', message: response.data.choices[0].message.content };
             const newChatLog = [...chatLog, { type: 'user', message }, newBotMessage];
             setChatLog(newChatLog);
@@ -87,19 +92,18 @@ export default function AIChat() {
 
     return (
         <div className="h-auto">
-            <ToastContainer />
-            <div className="text-transparent" id="ai-chat">.</div>
+            <div className="text-transparent select-none" id="ai-chat">.</div>
             <div className="h-screen">
-                <div className="relative w-full md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-[#ffffff69] mx-auto my-24 overflow-y-auto overflow-x-hidden" ref={chatBoxRef}>
+                <div className="relative w-full md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto my-24 overflow-y-auto overflow-x-hidden" 
+                ref={chatBoxRef}>
                     <div className="w-full flex justify-center items-center p-4 relative">
-                        <Image src="/MySourceAI-w.png" alt="logo" width={30} height={30} className="mr-3 mt-1"/>
-                        <h1 className="text-transparent bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text font-semibold text-3xl select-none">
-                            AI Chat
-                        </h1>
+                        <Image src="/MySourceAI-w.png"  className="mr-3 mt-1 opacity-90 hover:opacity-100 duration-300" alt="logo" width={30} height={30}/>
+                        <h1 className="text-transparent bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text font-semibold text-3xl select-none mt-1">
+                            AI Chat</h1>
                         <button
                             onClick={clearHistory}
                             style={{ position: 'absolute', right: '20px' }}
-                            className="bg-transparent hover:opacity-100 opacity-70">
+                            className="bg-transparent hover:opacity-100 opacity-70 hover:scale-105 duration-200">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
                                 <path d="M20.944 12.979c-.489 4.509-4.306 8.021-8.944 8.021-2.698 0-5.112-1.194-6.763-3.075l1.245-1.633c1.283 1.645 3.276 2.708 5.518 2.708 3.526 0 6.444-2.624 6.923-6.021h-2.923l4-5.25 4 5.25h-3.056zm-15.864-1.979c.487-3.387 3.4-6 6.92-6 2.237 0 4.228 1.059 5.51 2.698l1.244-1.632c-1.65-1.876-4.061-3.066-6.754-3.066-4.632 0-8.443 3.501-8.941 8h-3.059l4 5.25 4-5.25h-2.92z"/>
                             </svg>
@@ -111,7 +115,8 @@ export default function AIChat() {
                                 key={index}
                                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div
-                                    className={`${message.type === 'user' ? 'bg-[#0e395c75]' : 'bg-[#161a5575] backdrop-blur-sm'} prose text-inherit break-words rounded-lg p-4 text-white max-w-sm`}>
+                                    className={`${message.type === 'user' ? 'bg-[#0e395c47]' : 'bg-[#161a5575] backdrop-blur-sm'} 
+                                    prose text-inherit break-words rounded-lg p-4 text-white max-w-sm`}>
                                     {message.message}
                                 </div>
                             </div>
@@ -125,17 +130,18 @@ export default function AIChat() {
                         )}
                     </div>
                 </div>
-                <div className="md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2 border border-[#ffffff69] mx-auto bottom-12 flex backdrop-blur-sm rounded-lg">
-                    <form onSubmit={handleSubmit} className="w-full flex">
+                <div className="md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2  mx-auto bottom-12 flex backdrop-blur-sm rounded-lg">
+                    <form onSubmit={handleSubmit} className="w-full flex ">
                         <input
                             type="text"
-                            className="px-4 py-2 w-11/12 bg-transparent text-white focus:outline-none"
+                            rows="2"
+                            className="p-4 w-full bg-transparent text-white border border-white border-opacity-40 hover:border-opacity-80 focus:outline-none rounded-s-lg duration-500"
                             placeholder="Ask something to MySourceAI!"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}/>
                         <button
                             type="submit"
-                            className="px-5 py-4 text-gray-400 focus:outline-none font-semibold hover:text-white hover:scale-110 transition-transform">
+                            className="p-4 text-white focus:outline-none text-opacity-60 hover:text-opacity-100 border border-white border-opacity-40 hover:border-opacity-80  font-semibold rounded-e-lg hover:opacity-100 duration-500">
                             Send
                         </button>
                     </form>

@@ -1,7 +1,7 @@
 import AIChat from "@/pages/AIChat";
 import Settings from "@/pages/Settings";
 import Sources from "@/pages/Sources";
-import { BasePromptProvider } from './BasePromptContext';
+import { BasePromptProvider } from './api/BasePromptContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
