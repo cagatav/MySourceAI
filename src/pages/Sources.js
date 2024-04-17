@@ -94,7 +94,7 @@ export default function Sources() {
                   {uploadedFile.name}</span>
               </div>
               <span className="text-gray-500 text-sm">
-
+                {(uploadedFile.size / 1024).toFixed(2)} KB
               </span>
             </div>
           ))}
