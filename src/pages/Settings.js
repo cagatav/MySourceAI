@@ -3,7 +3,7 @@ import { useBasePrompt } from './api/BasePromptContext';
 import { toast } from 'react-toastify';
 
 export default function Settings() {
-    const [ basePrompt, updateBasePrompt ] = useBasePrompt() || [];
+    const {basePrompt, updateBasePrompt} = useBasePrompt() || [];
     const [chatType, setChatType] = useState('GPT 3.5');
     const [temperature, setTemperature] = useState(0.5);
     const [initialChatType, setInitialChatType] = useState('');
