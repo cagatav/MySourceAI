@@ -5,7 +5,7 @@ import { BasePromptProvider } from './api/BasePromptContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Home() {
+export default function index() {
   return (
     <BasePromptProvider>
       <main className="relative">
