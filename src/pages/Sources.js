@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 
 export default function Sources() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const textAreaRef = useRef(null);
+  const maxRows = 12;
+  const lineHeight = 20; // Her satır için yükseklik
 
+  const autoResize = () => {
+    const element = textAreaRef.current;
+    element.style.height = 'auto'; // Yüksekliği sıfırla ve içeriğe göre ayarla
+    if (element.scrollHeight > maxRows * lineHeight) {
+      element.style.height = `${maxRows * lineHeight}px`; // Maksimum yükseklik sınırlaması
+      element.style.overflowY = 'auto'; // İçerik sınırlamayı aşarsa scroll bar ekle
+    } else {
+      element.style.height = `${element.scrollHeight}px`;
+    }
+  };
 
   const validateFiles = (files) => {
     const validFiles = files.filter(file => file.type === 'application/pdf');
@@ -40,9 +53,7 @@ export default function Sources() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-//    accept: 'application/pdf',
     multiple: true,
-    
   });
 
   const deleteSelectedFiles = () => {
@@ -57,12 +68,8 @@ export default function Sources() {
   };
 
   return (
-    <div className="flex flex-col items-center" id="sources">
-      <h1 className="text-3xl font-semibold bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text text-transparent select-none mt-28"
-      >
-        <svg width="30" height="30"  viewBox="0 0 24 24" fill='white' xmlns="http://www.w3.org/2000/svg" className="inline-block mr-3 -mt-1 opacity-90 hover:opacity-100 duration-300">
-          <path d="m2.394 15.759s7.554 4.246 9.09 5.109c.165.093.333.132.492.132.178 0 .344-.049.484-.127 1.546-.863 9.155-5.113 9.155-5.113.246-.138.385-.393.385-.656 0-.566-.614-.934-1.116-.654 0 0-7.052 3.958-8.539 4.77-.211.115-.444.161-.722.006-1.649-.928-8.494-4.775-8.494-4.775-.502-.282-1.117.085-1.117.653 0 .262.137.517.382.655zm0-3.113s7.554 4.246 9.09 5.109c.165.093.333.132.492.132.178 0 .344-.049.484-.127 1.546-.863 9.155-5.113 9.155-5.113.246-.138.385-.393.385-.656 0-.566-.614-.934-1.116-.654 0 0-7.052 3.958-8.539 4.77-.211.115-.444.161-.722.006-1.649-.928-8.494-4.775-8.494-4.775-.502-.282-1.117.085-1.117.653 0 .262.137.517.382.655zm10.271-9.455c-.246-.128-.471-.191-.692-.191-.223 0-.443.065-.675.191l-8.884 5.005c-.276.183-.414.444-.414.698 0 .256.139.505.414.664l8.884 5.006c.221.133.447.203.678.203.223 0 .452-.065.689-.203l8.884-5.006c.295-.166.451-.421.451-.68 0-.25-.145-.503-.451-.682zm-8.404 5.686 7.721-4.349 7.72 4.349-7.72 4.35z" fill-rule="nonzero"/>
-        </svg>
+    <div className="flex flex-col items-center h-screen" id="sources">
+      <h1 className="text-3xl font-semibold bg-gradient-to-t from-slate-100 to-slate-300 bg-clip-text text-transparent select-none mt-28">
         Sources
       </h1>
       <div {...getRootProps()} className={`md:w-1/2 xx:w-4/5 mt-4 p-4 border-2 border-dashed border-opacity-40 hover:border-opacity-100 duration-1000 rounded-lg backdrop-blur-sm cursor-pointer ${
@@ -90,12 +97,9 @@ export default function Sources() {
                   onChange={() => handleCheckboxChange(index)}
                   className="mr-2"
                 />
-                <span className="text-gray-300 text-sm">
-                  {uploadedFile.name}</span>
+                <span className="text-gray-300 text-sm">{uploadedFile.name}</span>
               </div>
-              <span className="text-gray-500 text-sm">
-                {(uploadedFile.size / 1024).toFixed(2)} KB
-              </span>
+              <span className="text-gray-500 text-sm">{(uploadedFile.size / 1024).toFixed(2)} KB</span>
             </div>
           ))}
           <div className="flex justify-between">
@@ -111,6 +115,21 @@ export default function Sources() {
           </div>
         </div>
       )}
+      <div className="relative md:w-1/2 xx:w-4/5 inset-x-0 h-4/6 flex rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto mt-4 overflow-y-auto overflow-x-hidden">
+        <div className="text-center m-3 pb-3 mb-5 relative w-full">
+          <label htmlFor="basePrompt" className="text-white text-lg border-b select-none">Text Content</label>
+          <br className='textContent'/>
+          <textarea
+            ref={textAreaRef}
+            onInput={autoResize}
+            className="mt-5 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
+            id="textContent"
+            placeholder="Enter Text Content."
+            rows="2"
+            style={{ width: "90%", resize: "vertical" }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
