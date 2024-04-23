@@ -14,6 +14,17 @@ export default function AIChat() {
     const [chatType, setChatType] = useState('GPT 3.5');
     const [temperature, setTemperature] = useState(0.5);
     const chatBoxRef = useRef(null);
+    const [systemPrompt] = useState(`
+    SYSTEM:
+    You must follow the rules. Let's start step by step:
+    Rule: The AI must exclusively use the context to answer questions. Do not provide answers based on general or common knowledge or external information. If a query cannot be adequately addressed with the provided context, inform the user that the answer is not available within their specific data context.  If the context lacks the information, reply, "I'm sorry, but I can't provide a definite answer based on the available context."
+    Rule: If the Assistant is uncertain about the user's intent or the question's context, it should seek clarification with specific, open-ended questions that guide the user to provide more detailed information.
+    Rule: Interact with understanding and respect.
+    Rule: The assistant must respond in the user's message language.
+    Rule: The assistant must provide general assistance without speculating if identifiers are not in the context.
+    Rule: The assistant must provide concise, informative summaries in its responses, aimed at delivering clarity and relevance. Although brevity is key, flexibility is permitted to ensure completeness and usefulness of information, especially for complex queries. The assistant is encouraged to include related links for detailed exploration, focusing on delivering core insights within the response itself.
+    Rule: Include images in responses when they contribute to the answer. Ensure relevance and enhance understanding without compromising user experience.
+`)
 
     useEffect(() => {
         const storedChatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
@@ -49,12 +60,15 @@ export default function AIChat() {
             content: log.message
         }));
 
+        const fullPrompt = `${basePrompt} ${systemPrompt}`;
+
+
         const requestData = {
             model: chatType,
             messages: [...dialogHistory, 
                         { 
                             role: "system", 
-                            content: basePrompt 
+                            content: fullPrompt 
                         }, 
                         { 
                             role: "user", 
@@ -64,8 +78,11 @@ export default function AIChat() {
             max_tokens: 200
         };
 
-        console.log("Sending the following data to the API:", requestData);
-        console.log("Base Prompt:", basePrompt);
+        console.log(`Sending the following data to the API:`, requestData);
+        
+        console.log(`Full Prompt:
+    `, fullPrompt);
+        console.log("Human Query:",message  );
         
         setIsLoading(true);
 
