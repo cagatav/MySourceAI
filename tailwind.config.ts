@@ -12,7 +12,7 @@ const config: Config = {
       'xs': '475px',
       'sm': '640px',
       'md': '768px',
-      'lg': '1024px',
+      'lg': '1053px',
       'xl': '1280px',
     },
     extend: {
@@ -22,7 +22,7 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       animation: {
-        'spin-slow': 'spin 20s linear infinite',
+        'spin-slow': 'spin 30s linear infinite',
       }
     },
   },

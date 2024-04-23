@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       };
-
+// OPENAI_API_KEY="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"
       const response = await axios.post(url, body, { headers: headers });
       res.status(200).json(response.data);
     } catch (error) {

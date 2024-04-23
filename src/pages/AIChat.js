@@ -95,7 +95,7 @@ export default function AIChat() {
         <div className="h-auto">
             <div className="text-transparent select-none" id="ai-chat">.</div>
             <div className="h-screen">
-                <div className="relative w-full md:w-1/2 xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto my-24 overflow-y-auto overflow-x-hidden" 
+                <div className="relative w-full lg:w-4/6  xx:w-4/5 inset-x-0 h-2/3 rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b] border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto my-24 overflow-y-auto overflow-x-hidden" 
                 ref={chatBoxRef}>
                     <div className="w-full flex justify-center items-center p-4 relative">
                         <Image src="/MySourceAI-w.png"  className="mr-3 mt-1 opacity-90 hover:opacity-100 duration-300" alt="logo" width={30} height={30}/>
@@ -117,7 +117,7 @@ export default function AIChat() {
                                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div
                                     className={`${message.type === 'user' ? 'bg-[#0e395c47]' : 'bg-[#161a5575] backdrop-blur-sm'} 
-                                    prose text-inherit break-words rounded-lg p-4 text-white max-w-sm`}>
+                                    text-inherit break-words rounded-lg p-4 text-white max-w-lg`}>
                                     {message.message}
                                 </div>
                             </div>
@@ -131,7 +131,7 @@ export default function AIChat() {
                         )}
                     </div>
                 </div>
-                <div className="md:w-1/2 xx:w-4/5 relative inset-x-0 w-1/2  mx-auto bottom-12 flex backdrop-blur-sm rounded-lg">
+                <div className="lg:w-4/6 xx:w-4/5 relative inset-x-0 w-1/2  mx-auto bottom-12 flex backdrop-blur-sm rounded-lg duration-1000">
                     <form onSubmit={handleSubmit} className="w-full flex ">
                         <input
                             type="text"

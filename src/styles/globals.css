@@ -5,6 +5,7 @@
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 0px;
 }
 
 
@@ -83,4 +84,9 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border-radius: 20%; 
 }
-
+.padding-block-end-inherit {
+  padding-block-end: inherit;
+}
+.weight-saver{
+  width: auto !important;
+}
