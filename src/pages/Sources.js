@@ -22,6 +22,16 @@ export default function Sources() {
     }
   };
 
+  const autoResizeTextarea = (event) => {
+    const textarea = event.target;
+    textarea.style.height = 'inherit'; // Reset the height
+    const computed = window.getComputedStyle(textarea);
+    const height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                 + parseInt(computed.getPropertyValue('border-bottom-width'), 10)
+                 + textarea.scrollHeight; // Calculate the new height
+    textarea.style.height = `${height}px`; // Set the new height
+  };
+
   const validateFiles = (files) => {
     const validFiles = files.filter(file => file.type === 'application/pdf');
     const invalidCount = files.length - validFiles.length;
@@ -75,21 +85,66 @@ export default function Sources() {
     setInputText(event.target.value);
   };
 
+  const handleEditChange = (event, id) => {
+    setTextItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, text: event.target.value } : item
+      )
+    );
+    autoResizeTextarea(event);
+  };
+
   const handleDisplayText = () => {
     if (inputText.trim().length === 0) {
       toast.error("Please enter some text before adding.");
       return;
     }
-    setTextItems([{ id: uuidv4(), text: inputText.trim() }, ...textItems]);
+    setTextItems([{ id: uuidv4(), text: inputText.trim(), isEditing: false }, ...textItems]);
     setInputText('');
     toast.success("Text content has been added successfully!");
   };
-  
+
+  const startEditing = (id) => {
+    setTextItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, isEditing: true } : item
+      )
+    );
+  };
+
+  const saveText = (id, newText) => {
+    const existingItem = textItems.find(item => item.id === id);
+    if (newText.trim() === existingItem.text.trim()) {
+      toast.info("No changes were made.");
+      cancelEditing(id);
+      return;
+    }
+
+    if (newText.trim().length === 0) {
+      toast.error("Text cannot be empty.");
+      return;
+    }
+
+    setTextItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, text: newText.trim(), isEditing: false } : item
+      )
+    );
+    toast.success("Text content updated successfully!");
+  };
+
+  const cancelEditing = (id) => {
+    setTextItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, isEditing: false } : item
+      )
+    );
+  };
+
   const handleDeleteText = (id) => {
     setTextItems(textItems.filter(item => item.id !== id));
     toast.warning(`Text content has been deleted successfully!`);
   };
-  
 
   const isScrollable = textItems.length >= 4;
 
@@ -109,8 +164,7 @@ export default function Sources() {
         )}
       </div>
       {uploadedFiles.length > 0 && (
-        <div className="overflow-y-scroll' : 'h-auto lg:w-4/6 xx:w-4/5 p-4 border border-white border-opacity-40 hover:border-opacity-80 duration-1000 rounded-lg mt-4 backdrop-blur-sm" 
-        style={{}}>
+        <div className="overflow-y-scroll' : 'h-auto lg:w-4/6 xx:w-4/5 p-4 border border-white border-opacity-40 hover:border-opacity-80 duration-1000 rounded-lg mt-4 backdrop-blur-sm">
           <div className="flex justify-between mb-5">
             <p className="text-lg font-semibold text-white">Uploaded Files</p>
             <p className="text-lg font-semibold text-white">File Size</p>
@@ -151,7 +205,7 @@ export default function Sources() {
             ref={textAreaRef}
             onInput={autoResize}
             onChange={handleTextChange}
-            className=" mt-5 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
+            className="mt-5 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
             id="textContent"
             placeholder="Enter Text Content."
             rows="2"
@@ -164,15 +218,26 @@ export default function Sources() {
           </div>
         </div>
         {textItems.map((item) => (
-          <div key={item.id} className="bg-transparent text-white p-3 my-3 rounded-lg flex justify-between items-center border-slate-200 m-10 border backdrop-blur-sm" 
-          style={{ height: 'auto', wordBreak:"break-all"}}>
-            {item.text}
-            <button onClick={() => handleDeleteText(item.id)} className="duration-200 bg-[#824848] hover:bg-transparent text-white py-1 px-3 rounded-lg border border-transparent hover:border-white ml-5"
-            style={{ height: 'auto', wordBreak:"keep-all" }}>
-              Delete
-            </button>
-          </div>
-        ))}
+  <div key={item.id} className="bg-transparent text-white p-3 my-3 rounded-lg flex justify-between items-center border-slate-200 m-10 border backdrop-blur-sm" 
+  style={{ height: 'auto', wordBreak: "break-all" }}>
+    {item.isEditing ? (
+      <textarea
+        value={item.text}
+        onChange={(e) => handleEditChange(e, item.id)}
+        onBlur={() => saveText(item.id, item.text)}
+        className="text-white bg-transparent border-b border-white px-2 py-1 rounded w-full focus:outline-none"
+        autoFocus
+        style={{ minHeight: '50px', maxRows:"20", overflow: 'hidden', resize: 'none' }}
+      />
+    ) : (
+      <span onClick={() => startEditing(item.id)} className="line-clamp-3">{item.text}</span>
+    )}
+    <button onClick={() => handleDeleteText(item.id)} className="ml-5 duration-200 bg-transparent text-white py-1 px-1 rounded-lg border border-transparent hover:border-white hover:opacity-75"
+            style={{ height: 'auto', wordBreak: "keep-all"}}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1zM9 2H6v1h3zM4 13h7V4H4zm2-8H5v7h1zm1 0h1v7H7zm2 0h1v7H9z" clip-rule="evenodd"/></svg>
+    </button>
+  </div>
+))} 
       </div>
     </div>
   );

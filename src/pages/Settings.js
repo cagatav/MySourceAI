@@ -78,7 +78,7 @@ export default function Settings() {
 
   return (
     <div className="h-auto" id="settings">
-      <div className="text-transparent select-none mt-20" id="settings">.</div>
+      <div className="text-transparent select-none mt-96" id="settings">.</div>
       <h1 className="bg-gradient-to-t from-slate-100 to-slate-300 text-transparent bg-clip-text text-center pt-10 pb-1 font-semibold text-3xl select-none mt-12">
       <svg 
         width="30" 
