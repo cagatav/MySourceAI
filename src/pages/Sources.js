@@ -115,7 +115,7 @@ export default function Sources() {
   const saveText = (id, newText) => {
     const existingItem = textItems.find(item => item.id === id);
     if (newText.trim() === existingItem.text.trim()) {
-      toast.info("No changes were made.");
+      toast.success("Text content updated successfully!");
       cancelEditing(id);
       return;
     }
@@ -232,14 +232,17 @@ export default function Sources() {
   <div key={item.id} className="bg-transparent text-white p-3 my-3 rounded-lg flex justify-between items-center border-slate-200 m-10 border backdrop-blur-sm" 
   style={{ height: 'auto', wordBreak: "break-all" }}>
     {item.isEditing ? (
+      <div className={` w-full ${isScrollable ? 'h-5/6 overflow-y-scroll' : 'h-auto'}`} >
       <textarea
         value={item.text}
+        onInput={autoResize}
         onChange={(e) => handleEditChange(e, item.id)}
         onBlur={() => saveText(item.id, item.text)}
-        className="text-white bg-transparent border-b border-white px-2 py-1 rounded w-full focus:outline-none"
+        className="text-white bg-transparent border-b border-white px-2 py-1 rounded w-full h-full focus:outline-none"
         autoFocus
         style={{ minHeight: '50px', maxRows:"20", overflow: 'hidden', resize: 'none' }}
       />
+      </div>
     ) : (
       <span onClick={() => startEditing(item.id)} className="line-clamp-3">{item.text}</span>
     )}
