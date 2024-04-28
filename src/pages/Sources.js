@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import * as PDFJS from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
 export default function Sources() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -10,6 +12,8 @@ export default function Sources() {
   const textAreaRef = useRef(null);
   const maxRows = 12;
   const lineHeight = 20;
+
+  useEffect(() => {}, [inputText]);
 
   const autoResize = () => {
     const element = textAreaRef.current;
@@ -21,6 +25,20 @@ export default function Sources() {
       element.style.height = `${element.scrollHeight}px`;
     }
   };
+
+  async function parsePdf(pdfBuffer) {
+    const pdf = await PDFJS.getDocument(pdfBuffer).promise;
+    const numPages = pdf.numPages;
+    let fullText = '';
+
+    for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map(item => item.str).join('\n');
+        fullText += pageText + '\n';
+    }
+    return fullText;
+}
 
   const autoResizeTextarea = (event) => {
     const textarea = event.target;
@@ -80,6 +98,26 @@ export default function Sources() {
     updatedFiles[index].selected = !updatedFiles[index].selected;
     setUploadedFiles(updatedFiles);
   };
+
+  const handleTrain = (event) => {
+    var pdftext = `
+      Asagida tanimlanan dokuman iceriklerine gore sana soracagim sorulari cevapla.
+      
+    `;
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      if (uploadedFiles[i].selected) {
+        const reader = new FileReader();
+        reader.onload = async () => {
+            const buffer = reader.result;
+            const text = await parsePdf(buffer).then((text)=>{
+              return text;
+            });
+            setInputText(pdftext + `${uploadedFiles[i].name}:\n${text}`);
+        };
+        reader.readAsArrayBuffer(uploadedFiles[i].file);
+      }
+    }
+  }
 
   const handleTextChange = (event) => {
     setInputText(event.target.value);
@@ -201,6 +239,7 @@ export default function Sources() {
               Delete Selected
             </button>
             <button
+              onClick={handleTrain}
               className="duration-200 bg-[#414bd4] hover:bg-transparent text-white py-2 px-8 rounded-lg border border-transparent hover:border-white">
               Train MySourceAI
             </button>
