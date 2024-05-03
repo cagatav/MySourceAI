@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useBasePrompt } from './api/BasePromptContext';
 
 export default function AIChat() {
-
+    const [textItems, setTextItems] = useState([]);
     const {basePrompt}  = useBasePrompt("") || [];
     const [inputValue, setInputValue] = useState('');
     const [chatLog, setChatLog] = useState([]);
@@ -25,6 +25,19 @@ export default function AIChat() {
     Rule: The assistant must provide concise, informative summaries in its responses, aimed at delivering clarity and relevance. Although brevity is key, flexibility is permitted to ensure completeness and usefulness of information, especially for complex queries. The assistant is encouraged to include related links for detailed exploration, focusing on delivering core insights within the response itself.
     Rule: Include images in responses when they contribute to the answer. Ensure relevance and enhance understanding without compromising user experience.
 `)
+
+const [fullPrompt, setFullPrompt] = useState('');
+
+useEffect(() => {
+    const storedTextItems = localStorage.getItem('textItems');
+    if (storedTextItems) {
+        const parsedTextItems = JSON.parse(storedTextItems);
+        const textItemsText = parsedTextItems.map(item => item.text).join('\n \n');
+        const updatedSystemPrompt = `${systemPrompt}\nCONTENT: \n${textItemsText}`;
+        setTextItems(parsedTextItems);
+        setFullPrompt(`${basePrompt} \n ${updatedSystemPrompt}`);
+    }
+}, []);
 
     useEffect(() => {
         const storedChatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
@@ -60,7 +73,6 @@ export default function AIChat() {
             content: log.message
         }));
 
-        const fullPrompt = `${basePrompt} ${systemPrompt}`;
 
 
         const requestData = {
