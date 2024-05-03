@@ -211,7 +211,7 @@
             Sources
           </h1> 
         </div>
-        <div {...getRootProps()} className={`lg:w-4/6 xx:w-4/5 mt-4 p-4 border-2 border-solid hover:border-dashed border-opacity-40 hover:border-opacity-100 backdrop-blur-sm duration-1000 rounded-lg cursor-pointer 
+        {/*<div {...getRootProps()} className={`lg:w-4/6 xx:w-4/5 mt-4 p-4 border-2 border-solid hover:border-dashed border-opacity-40 hover:border-opacity-100 backdrop-blur-sm duration-1000 rounded-lg cursor-pointer 
         ${isDragActive ? 'border-blue-100 bg-blue-100' : 'border-white border-opacity-40'
           } flex flex-col justify-center items-center`}>
           <input {...getInputProps()} />
@@ -254,7 +254,7 @@
               </button>
             </div>
           </div>
-        )}
+        )}*/}
         <div className={`h-full pb-[20px] relative lg:w-4/6 xx:w-4/5 inset-x-0 flex flex-col rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto mt-4 
         ${isScrollable ? 'h-4/6 overflow-y-scroll' : 'h-auto'}`}>
           <div className="weight-saver text-center m-3 pb-3 mb-5 relative w-full">
