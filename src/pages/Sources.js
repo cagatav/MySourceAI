@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import * as PDFJS from 'pdfjs-dist';
-import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
 export default function Sources() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
