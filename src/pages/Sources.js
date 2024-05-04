@@ -2,6 +2,8 @@
   import { useDropzone } from 'react-dropzone';
   import { toast } from 'react-toastify';
   import { v4 as uuidv4 } from 'uuid';
+  import * as PDFJS from 'pdfjs-dist';
+  import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
   export default function Sources() {
     const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -10,6 +12,8 @@
     const textAreaRef = useRef(null);
     const maxRows = 12;
     const lineHeight = 20;
+
+    useEffect(() => {}, [inputText]);
 
     useEffect(() => {
       const storedTextItems = localStorage.getItem('textItems');
@@ -81,7 +85,7 @@
         file,
         name: file.name,
         size: file.size,
-        selected: false,
+        selected: true,
       }));
 
       setUploadedFiles(prev => [...prev, ...newFiles]);
@@ -105,7 +109,6 @@
     };
 
     const handleTrain = (event) => {
-      var pdftext = `        `;
       for (let i = 0; i < uploadedFiles.length; i++) {
         if (uploadedFiles[i].selected) {
           const reader = new FileReader();
@@ -114,12 +117,17 @@
               const text = await parsePdf(buffer).then((text)=>{
                 return text;
               });
-              setInputText(pdftext + `${uploadedFiles[i].name}:\n${text}`);
+              setInputText(`-PDF-\n${uploadedFiles[i].name}:\n${text}`);
           };
           reader.readAsArrayBuffer(uploadedFiles[i].file);
+          const updatedFiles = uploadedFiles.filter(file => !file.selected);
+          setUploadedFiles(updatedFiles);
+          toast.success("PDF's content has been added successfully!");
+
         }
       }
     }
+  
 
     const handleTextChange = (event) => {
       setInputText(event.target.value);
@@ -145,6 +153,7 @@
       localStorage.setItem('textItems', JSON.stringify([newTextItem, ...textItems]));
       toast.success("Text content has been added successfully!");
     };
+    
     const startEditing = (id) => {
       setTextItems(items =>
         items.map(item =>
@@ -156,7 +165,7 @@
     const saveText = (id, newText) => {
       const existingItem = textItems.find(item => item.id === id);
       if (newText.trim() === existingItem.text.trim()) {
-        localStorage.setItem('textItems', JSON.stringify(updatedItems)); // LocalStorage güncelleme
+        localStorage.setItem('textItems', JSON.stringify(updatedItems));
         toast.success("Text content updated successfully!");
         cancelEditing(id);
         return;
@@ -167,7 +176,7 @@
         return;
       }
 
-      const updatedItems = [...textItems]; // textItems'in kopyasını al
+      const updatedItems = [...textItems];
       updatedItems[existingItem] = { ...updatedItems[existingItem], text: newText.trim(), isEditing: false };
       
       setTextItems(items =>
@@ -189,11 +198,11 @@
     const handleDeleteText = (id) => {
       const updatedItems = textItems.filter(item => item.id !== id);
       setTextItems(updatedItems);
-      localStorage.setItem('textItems', JSON.stringify(updatedItems)); // LocalStorage güncelleme
+      localStorage.setItem('textItems', JSON.stringify(updatedItems));
       toast.warning(`Text content has been deleted successfully!`);
     };
 
-    const isScrollable = textItems.length >= 4;
+    const isScrollable = textItems.length >= 2;
 
     return (
       <div className="flex flex-col items-center h-screen pb-5" id="sources">
@@ -211,7 +220,7 @@
             Sources
           </h1> 
         </div>
-        {/*<div {...getRootProps()} className={`lg:w-4/6 xx:w-4/5 mt-4 p-4 border-2 border-solid hover:border-dashed border-opacity-40 hover:border-opacity-100 backdrop-blur-sm duration-1000 rounded-lg cursor-pointer 
+        <div {...getRootProps()} className={`lg:w-4/6 xx:w-4/5 mt-4 p-4 border-2 border-solid hover:border-dashed border-opacity-40 hover:border-opacity-100 backdrop-blur-sm duration-1000 rounded-lg cursor-pointer 
         ${isDragActive ? 'border-blue-100 bg-blue-100' : 'border-white border-opacity-40'
           } flex flex-col justify-center items-center`}>
           <input {...getInputProps()} />
@@ -236,7 +245,7 @@
                     onChange={() => handleCheckboxChange(index)}
                     className="mr-2"
                   />
-                  <span className="text-gray-300 text-sm" style={{ overflowWrap: 'break-word' }}>{uploadedFile.name}</span>
+                  <span className="text-gray-300 text-sm ml-5" style={{ overflowWrap: 'break-word' }}>{uploadedFile.name}</span>
                 </div>
                 <span className="text-gray-500 text-sm">{(uploadedFile.size / 1024).toFixed(2)} KB</span>
               </div>
@@ -254,7 +263,7 @@
               </button>
             </div>
           </div>
-        )}*/}
+        )}
         <div className={`h-full pb-[20px] relative lg:w-4/6 xx:w-4/5 inset-x-0 flex flex-col rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto mt-4 
         ${isScrollable ? 'h-4/6 overflow-y-scroll' : 'h-auto'}`}>
           <div className="weight-saver text-center m-3 pb-3 mb-5 relative w-full">
@@ -267,7 +276,7 @@
               className="mt-5 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
               id="textContent"
               placeholder="Enter Text Content."
-              rows="2"
+              rows="6"
               style={{ width: "95%", resize: "vertical", overflowWrap: 'break-word'}}
             />
             <div className="flex justify-center mt-4">
