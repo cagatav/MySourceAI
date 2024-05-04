@@ -35,7 +35,6 @@ useEffect(() => {
         const textItemsText = parsedTextItems.map(item => item.text).join('\n \n');
         const updatedSystemPrompt = `${systemPrompt}\nCONTENT: \n${textItemsText}`;
         setTextItems(parsedTextItems);
-        setFullPrompt(`${basePrompt} \n ${updatedSystemPrompt}`);
     }
 }, []);
 
