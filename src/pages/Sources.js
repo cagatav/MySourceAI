@@ -152,6 +152,9 @@
       setInputText('');
       localStorage.setItem('textItems', JSON.stringify([newTextItem, ...textItems]));
       toast.success("Text content has been added successfully!");
+      setTimeout(() => {
+        window.location.reload();
+    }, 3500);
     };
     
     const startEditing = (id) => {
