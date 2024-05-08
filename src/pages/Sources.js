@@ -262,7 +262,7 @@
               <button
                 onClick={handleTrain}
                 className="duration-200 bg-[#414bd4] hover:bg-transparent text-white py-2 px-8 rounded-lg border border-transparent hover:border-white">
-                Train MySourceAI
+                Extract Data
               </button>
             </div>
           </div>
@@ -284,7 +284,7 @@
             />
             <div className="flex justify-center mt-4">
               <button onClick={handleDisplayText} className="duration-200 bg-[#414bd4] hover:bg-transparent text-white py-2 px-8 rounded-lg border border-transparent hover:border-white">
-                Add Text
+                Train MySourceAI
               </button>
             </div>
           </div>
