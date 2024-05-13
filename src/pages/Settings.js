@@ -96,14 +96,14 @@ export default function Settings() {
         Settings</h1>
         <div className="relative lg:w-4/6  xx:w-4/5 inset-x-0 h-2/3 flex rounded-lg border bg-gradient-to-tr from-[#2e2b5285] to-[#08021b81] backdrop-blur-sm border-white border-opacity-40 hover:border-opacity-80 duration-1000 mx-auto mt-4 mb-12 overflow-y-auto overflow-x-hidden">
           <div className="w-full">
-            <div className="py-10 font-medium">
-            <div className="text-center margin pb-3 mb-5">
+            <div className="py-8 font-medium">
+            <div className="text-center margin pb-3 mb-3">
                 <label htmlFor="basePrompt" className="text-white text-lg border-b select-none">Base Prompt</label>
                 <br className='select-none'/>
-                <p className='text-white mt-5 font-light opacity-40 text-xs'>
+                <p className='text-white mt-3 font-light opacity-40 text-xs'>
                   The foundational text used to guide the model in understanding the context and purpose of the interaction.</p>
                 <textarea
-                  className="mt-5 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
+                  className="mt-3 border border-white border-opacity-40 hover:border-opacity-70 bg-transparent rounded-lg p-2 font-normal duration-500 text-white opacity-50 hover:opacity-100 focus:opacity-100"
                   id="basePrompt"
                   placeholder="Enter your Base Prompt."
                   value={basePrompt}
@@ -113,35 +113,35 @@ export default function Settings() {
                 />
               </div>
               <div className="text-center mb-3 margin ">
-              <hr className='opacity-40 hover:opacity-80 duration-1000 mb-7'/>
+              <hr className='opacity-40 hover:opacity-80 duration-1000 mb-4'/>
 
                 <label htmlFor="temperature" className="text-white text-lg border-b select-none">GPT Model</label>
-                <p className='text-white mt-5 font-light opacity-40 text-xs'>
+                <p className='text-white mt-3 font-light opacity-40 text-xs'>
                 The AI model processes text inputs and generates responses. Larger models are generally capable of higher complexity and accuracy.</p>
 
                 <br className='select-none'/>
                 <button
-                  className={`duration-200 m-5 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
+                  className={`duration-200 m-3 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
                   ${chatType === 'gpt-3.5-turbo-0125'  ? 'bg-[#414bd4] border-white text-white' : ''}`}
                   onClick={() => handleChatTypeChange('gpt-3.5-turbo-0125')}>
                   GPT 3.5
                 </button>
                 <button
-                  className={`duration-200 m-5 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
+                  className={`duration-200 m-3 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
                   ${chatType === 'gpt-4-turbo' ? 'bg-[#414bd4] border-white text-white' : ''}`}
                   onClick={() => handleChatTypeChange('gpt-4-turbo')}>
                   GPT 4
                 </button>
               </div>
-              <div className="text-center mb-10 margin text-lg">
-              <hr className='opacity-40 hover:opacity-80 duration-1000 mb-7'/>
+              <div className="text-center mb-5 margin text-lg">
+              <hr className='opacity-40 hover:opacity-80 duration-1000 mb-3'/>
 
               <label htmlFor="temperature" className="text-white border-b select-none">Temperature</label>
-              <p className='text-white mt-5 font-light opacity-40 text-xs'>
+              <p className='text-white mt-3 font-light opacity-40 text-xs'>
               Temperature controls text creativity: lower temps for predictability, higher temps for creativity.</p>
                 <br/>
                 <input
-                  className="duration-200 appearance-none bg-gray-200 h-1 w-60 rounded outline-none slider-thumb mt-5"
+                  className="duration-200 appearance-none bg-gray-200 h-1 w-60 rounded outline-none slider-thumb mt-3"
                   type="range"
                   min="0"
                   max="1.0"
