@@ -128,8 +128,8 @@ export default function Settings() {
                 </button>
                 <button
                   className={`duration-200 m-3 py-2 px-20 text-gray-400 rounded-md focus:outline-none border border-transparent hover:border-white hover:border hover:text-white
-                  ${chatType === 'gpt-4-turbo' ? 'bg-[#414bd4] border-white text-white' : ''}`}
-                  onClick={() => handleChatTypeChange('gpt-4-turbo')}>
+                  ${chatType === 'gpt-4o-2024-05-13' ? 'bg-[#414bd4] border-white text-white' : ''}`}
+                  onClick={() => handleChatTypeChange('gpt-4o-2024-05-13')}>
                   GPT 4
                 </button>
               </div>

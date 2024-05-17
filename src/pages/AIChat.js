@@ -17,7 +17,7 @@ export default function AIChat() {
     const [systemPrompt] = useState(`
     SYSTEM:
     You must follow the rules. Let's start step by step:
-    Rule: The AI must response must provide a concise summary in no more than 50 tokens, which is equal to 200 characters.
+    Rule: The AI response must provide a context summary in no more than 50 tokens, which is equal to 200 characters.
     Rule: The AI must exclusively use the context to answer questions. Do not provide answers based on general or common knowledge or external information. If a query cannot be adequately addressed with the provided context, inform the user that the answer is not available within their specific data context.  If the context lacks the information, reply, "I'm sorry, but I can't provide a definite answer based on the available context."
     Rule: If the Assistant is uncertain about the user's intent or the question's context, it should seek clarification with specific, open-ended questions that guide the user to provide more detailed information.
     Rule: Interact with understanding and respect.
@@ -88,7 +88,7 @@ useEffect(() => {
                             content: `${message}` 
                         }],
             temperature: temperature,
-            max_tokens: 300
+            max_tokens: 250
         };
 
         console.log(`Sending the following data to the API:`, requestData);
