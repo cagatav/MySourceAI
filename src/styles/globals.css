@@ -25,12 +25,12 @@
 }
 @font-face {
   font-family: 'montserrat';
-  src: url('Montserrat-Font.ttf');
+  src: url('Poppins-Regular.ttf');
   }
 
 body {
 
-  font-family: 'montserrat', sans-serif !important;
+  font-family: 'poppins', sans-serif !important;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(  
       to bottom,
