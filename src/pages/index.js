@@ -7,7 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function index() {
   return (
+
     <BasePromptProvider>
+    <title>MySourceAI</title>
       <main className="relative">
         <div className="min-h-screen">
           <AIChat/>
