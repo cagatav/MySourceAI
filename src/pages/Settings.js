@@ -66,9 +66,6 @@ export default function Settings() {
                 temperature: temperature,
                 basePrompt: basePrompt
             });
-            setTimeout(() => {
-              window.location.reload();
-          }, 3500);
 
           }
     };
